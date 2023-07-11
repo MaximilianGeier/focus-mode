@@ -25,7 +25,8 @@
     transform: translate(0, 0);
 }
 
-.play_btn{
+.pomodoro__play_btn{
+    transition: all 0.8s ease-in-out;
     position: absolute;
     bottom: 30px;
     left: 50%;
@@ -40,7 +41,7 @@
     border-radius: 50%;
 }
 
-.play_btn img {
+.pomodoro__play_btn img {
     width: 25px;
     height: 25px;
 }
@@ -54,4 +55,18 @@
     text-align: center;
     font-size: 80px;
     font-weight: bold;
+}
+
+.sounds__play_btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sounds__play_btn img {
+    margin-left: 15px;
+    width: 180px;
+    height: 180px;
+    transform: rotate(-45deg);
 }
