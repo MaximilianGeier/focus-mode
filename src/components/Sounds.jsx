@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
 import playImage from '../assets/images/play.svg';
 import pauseImage from '../assets/images/pause.svg';
-import waterStream from '../assets/sounds/water_stream.wav';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { setPlay, setStop } from '../slice/soundSettingsSlice'
 
 const Sounds = () => {
-    const [isSoundsPlaying, setIsSoundsPlaying] = useState(false);
-    const [soundsAudio, setSoundsAudio] = useState(new Audio(waterStream));
-    soundsAudio.loop = true;
+    const isSoundsPlaying = useSelector((state) => state.soundSettings.isPlaying);
+    const dispatch = useDispatch();
+    //const [isSoundsPlaying, setIsSoundsPlaying] = useState(false);
+    //const [soundsAudio, setSoundsAudio] = useState(new Audio(waterStream));
+    //soundsAudio.loop = true;
 
     let changeSoundsState = () => {
         if(!isSoundsPlaying) {
-            setIsSoundsPlaying(true);
-            soundsAudio.play();
+            console.log('setPlay');
+            dispatch(setPlay());
+            //setIsSoundsPlaying(true);
+            //soundsAudio.play();
         } else {
-            setIsSoundsPlaying(false);
-            soundsAudio.pause();
+            console.log('setStop');
+            dispatch(setStop());
+            //setIsSoundsPlaying(false);
+            //soundsAudio.pause();
         }
     };
 

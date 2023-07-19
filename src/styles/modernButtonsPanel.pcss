@@ -1,21 +1,21 @@
 .panel {
+    position: relative;
     display: flex;
     flex-direction: row;
     gap: 75px;
     color: var(--colorMineShaft);
+ 
+    &__border {
+        width: 0;
+        height: 45px;
+        border: 3px solid var(--colorMineShaft);
     
-}
-
-.panel__border {
-    width: 120px;
-    height: 45px;
-    border: 3px solid var(--colorMineShaft);
-
-    position: absolute;
-    top: 50%;
-    left: 17px;
-    transition: transform 0.5s ease-in-out;
-    transform: translateY(-50%);
+        position: absolute;
+        top: 50%;
+        left: -13px;
+        transition: all 0.5s ease-in-out;
+        transform: translateY(-50%);
+    }
 }
 
 .button__text:hover {

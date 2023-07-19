@@ -1,26 +1,45 @@
-import {React, useState} from 'react';
+import {React, useState, useRef, useEffect} from 'react';
 import '../styles/modernButtonsPanel.pcss';
-import { useDispatch } from 'react-redux';
-
 
 const ModernButton = (props) => {
     const [activeButtonStyle, setActiveButtonStyle] = useState({});
-    const dispatch = useDispatch();
+    const buttonRefs = [];
+    const borderRef = useRef(null);
 
-    const onButtonClick = (action, index) => {
-        dispatch(action());  
-        setActiveButtonStyle({transform: 'translate(' + ((index * 150)).toString() + 'px, -50%)'});
+    const onButtonClick = (dispatch, action, index) => {
+        dispatch(action());
+
+        let leftSpacing = 0;
+        for( let i = 0; i < index; i++) {
+            leftSpacing += buttonRefs[i].current.offsetWidth + 75;
+        }
+        setActiveButtonStyle({transform: 'translate(' + ( leftSpacing).toString() + 'px, -50%)'});
+        borderRef.current.style.width = (buttonRefs[index].current.offsetWidth + 20).toString() + 'px';
     };
+
+    useEffect(() => {
+        borderRef.current.style.width = (buttonRefs[0].current.offsetWidth + 20).toString() + 'px';
+    }, []);
 
     let buttons = [];
     props.buttons.forEach((element, index)  => {
-        buttons.push(<div onClick={() => onButtonClick(element.action, index)} key={index} className='button__text'>{element.title}</div>);
+        buttonRefs.push(useRef(null))
+        buttons.push(
+        <div onClick={
+                () => {
+                    onButtonClick(element.dispatch, element.action, index)
+                }}
+                key={index}
+                ref={buttonRefs.slice(-1)[0]}
+                className='button__text'>
+            {element.title}
+        </div>);
     });
     return (
-        <nav className='panel'>
+        <div className='panel'>
             {buttons}
-            <div className='panel__border' style={activeButtonStyle}></div>
-        </nav>
+            <div ref={borderRef} className='panel__border' style={activeButtonStyle}></div>
+        </div>
     );
 };
 
